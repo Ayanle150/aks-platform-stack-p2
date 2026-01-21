@@ -99,3 +99,27 @@ graph TD
 - Observability (logs, metrics, health)  
 - Secrets management (Key Vault CSI)  
 - GitOps-style deployment workflow
+
+---
+
+## 📐 Architecture diagram (Mermaid)
+
+```mermaid
+flowchart LR
+    Dev[Developer]
+    Repo[GitHub Repository]
+    CI[GitHub Actions CI]
+    Build[Docker Buildx]
+    ACR[Container Registry]
+    AKS[AKS Cluster]
+    Ingress[Ingress]
+    Users[End Users]
+
+    Dev --> Repo
+    Repo --> CI
+    CI --> Build
+    Build --> ACR
+    ACR --> AKS
+    AKS --> Ingress
+    Ingress --> Users
+```
