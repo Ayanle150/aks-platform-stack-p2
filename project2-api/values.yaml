@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: project2-api
-  tag: local
+  repository: p2acrdev59327.azurecr.io/project2-api
+  tag: latest
   pullPolicy: IfNotPresent
 
 app:
@@ -24,3 +24,6 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 60
+
+service:
+  type: LoadBalancer
