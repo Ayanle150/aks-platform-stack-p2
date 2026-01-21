@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: project2-api
+  tag: local
+  pullPolicy: IfNotPresent
+
+app:
+  version: "0.1.0"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+ingress:
+  host: project2.local
+
