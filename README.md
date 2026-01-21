@@ -20,7 +20,7 @@ real platform/devops workflows before moving the same workload to cloud (AKS) us
 - `infra/` — Terraform (WIP)
 - `cicd/` — pipelines (WIP)
 
-## 📚 Project documentation
+##  Project documentation
 -  [Platform architecture](docs/architecture.md)  
 -  [Architecture decisions](docs/decisions.md)  
 -  Kubernetes manifests and Helm charts in `/k8s` and `/project2-api`  
