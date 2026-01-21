@@ -1,11 +1,15 @@
 # Project 2 — Platform Engineering (Kubernetes + Helm)
 
-Production-style platform project demonstrating how to run and operate a containerized API on Kubernetes with
-Helm, ingress routing, health probes, resource limits and autoscaling (HPA). This repo is built to mirror
-real platform/devops workflows before moving the same workload to cloud (AKS) using Terraform + CI/CD.
+Production-style platform engineering project demonstrating how to build, run, and operate
+a containerized API on Kubernetes using Helm, ingress routing, health probes, resource
+governance, and autoscaling.
+
+The repository is structured to mirror real-world platform and DevOps workflows, and is
+designed to evolve into a full cloud platform on Azure (AKS) provisioned with Terraform and
+automated CI/CD.
 
 ## What’s inside
-- **FastAPI service** (minimal API) containerized with Docker
+- **FastAPI service** containerized with Docker (example workload)
 - **Kubernetes** deployment via **Helm chart**
 - **Ingress** routing (Traefik locally)
 - **Health probes** (readiness/liveness)
@@ -18,7 +22,7 @@ real platform/devops workflows before moving the same workload to cloud (AKS) us
 - `project2-api/` — Helm chart (single source of truth for k8s resources)
 - `docs/` — architecture + runbook (WIP)
 - `infra/` — Terraform (WIP)
-- `cicd/` — pipelines (WIP)
+- `.github/workflows/` — CI/CD pipelines (GitHub Actions)
 
 ##  Project documentation
 -  [Platform architecture](docs/architecture.md)  
@@ -62,7 +66,12 @@ In progress / planned:
 Install tools (Homebrew):
 ```bash
 brew install k3d kubectl helm
+```
 
+This local setup simulates a real platform environment using a lightweight Kubernetes
+distribution (k3d) and the same Helm chart that will later be used in AKS.
+
+```bash
 Run locally (k3d + Helm)
 1) Build the image
 cd app
@@ -87,12 +96,14 @@ http://project2.local:8080/docs
 
 Verify autoscaling
 kubectl -n p2 get hpa
+```
 
-Operational notes
+## Operational notes
 
-The Helm chart is the single source of truth for Kubernetes resources.
+- The Helm chart is the single source of truth for Kubernetes resources.
+- The platform is designed to separate application concerns from platform and infrastructure concerns.
 
-Local ingress is handled by Traefik shipped with k3d/k3s.
+- Local ingress is handled by Traefik shipped with k3d/k3s.
 
 Next steps will add: Terraform remote state, AKS provisioning, container registry, and CI/CD deploy.
 
