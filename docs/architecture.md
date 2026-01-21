@@ -63,35 +63,18 @@ and automate the interfaces between them.
 
 ## 📐 Architecture diagram
 
-The target architecture is visualized in the diagram below:
+The target architecture is visualized below (Mermaid):
 
-
-
-[ Developer ]
-|
-v
-[ GitHub Repo ]
-|
-v
-[ GitHub Actions CI ]
-|
-v
-[ Docker Buildx ]
-|
-v
-[ Azure Container Registry ]
-|
-v
-[ AKS Cluster ]
-|
-v
-[ Service / Ingress ]
-|
-v
-[ End Users ]
-
-
-A rendered diagram will be added in `/docs/architecture.png`.
+```mermaid
+graph TD
+  A[Developer] --> B[GitHub Repo]
+  B --> C[GitHub Actions CI]
+  C --> D[Docker Buildx]
+  D --> E[Azure Container Registry]
+  E --> F[AKS Cluster]
+  F --> G[Service / Ingress]
+  G --> H[End Users]
+```
 
 ---
 

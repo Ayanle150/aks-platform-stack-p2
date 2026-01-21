@@ -27,6 +27,9 @@ real platform/devops workflows before moving the same workload to cloud (AKS) us
 - 🧱 Terraform infrastructure in `/infra/terraform`  
 - 🔁 CI/CD workflows in `/.github/workflows`
 
+## 📐 Architecture diagram
+See the rendered diagram in `docs/architecture.md` (Mermaid).
+
 ## 📈 Platform maturity
 This repository is structured as a real platform engineering project.
 
