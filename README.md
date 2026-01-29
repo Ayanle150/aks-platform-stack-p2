@@ -17,6 +17,33 @@ automated CI/CD.
 - **Autoscaling** via **HPA**
 - *(Next)* Terraform provisioning + GitHub Actions CI/CD to AKS
 
+## 🎬 Demo (2 min)
+1) Build image
+```bash
+cd app
+docker build -t project2-api:local .
+```
+
+Start local Kubernetes (k3d) + import image
+```bash
+k3d cluster create p2 --agents 1 -p "8080:80@loadbalancer"
+k3d image import project2-api:local -c p2
+```
+
+Deploy with Helm
+```bash
+helm upgrade --install project2-api ./project2-api --namespace p2 --create-namespace
+```
+
+Verify
+```bash
+kubectl -n p2 get pods
+kubectl -n p2 get hpa
+curl http://project2.local:8080/health
+```
+
+*(Hvis du bruker annet domene enn `project2.local`, bytt det i linjen.)*
+
 ## Repository structure
 - `app/` — FastAPI source + Dockerfile
 - `project2-api/` — Helm chart (single source of truth for k8s resources)
@@ -58,6 +85,14 @@ Due to restricted permissions in the student tenant (App registration / SP creat
 the Azure CD workflow is gated until the required identity configuration is available.
 The repository includes the full target workflow and required configuration under
 `docs/azure-vars.md`.
+
+## ☁️ Activating Azure CD later (AKS + ACR)
+To activate the gated Azure workflow:
+- Use a personal Azure tenant/subscription (or admin-provisioned identity)
+- Create Entra App Registration + Federated Credential (GitHub OIDC)
+- Add GitHub Secrets: AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID
+- Add GitHub Vars: AZURE_ACR_NAME, AKS_RESOURCE_GROUP, AKS_CLUSTER_NAME
+- Run `CD (Azure AKS)` via workflow_dispatch
 
 ##  Security model
 - Identity-based authentication (OIDC) for CI/CD  
