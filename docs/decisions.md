@@ -36,3 +36,8 @@ This document captures key engineering decisions for the DevOps Platform Stack p
 **Decision:** Use an ingress resource/controller to expose services externally.  
 **Rationale:** Standard Kubernetes routing, TLS termination, and future readiness for multiple services/domains.  
 **Status:** Implemented (ingress manifest committed). Next: controller + DNS/TLS in cloud.
+
+## ADR-008: Gate Azure CD due to restricted student tenant (Entra ID permissions)
+**Decision:** Keep the target Azure CD workflow (OIDC → ACR → AKS) in the repository, but gate execution until required Entra ID permissions are available.  
+**Rationale:** Some student tenants restrict App Registrations / Service Principal creation, preventing OIDC configuration. Gating avoids blocking development while preserving an Azure-first architecture and deployment design.  
+**Status:** Implemented (workflow gated). Will be activated in a personal Azure subscription or admin-provisioned identity.
