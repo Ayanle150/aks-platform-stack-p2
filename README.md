@@ -1,12 +1,11 @@
 # Project 2 — Platform Engineering (Kubernetes + Helm)
 
-Production-style platform engineering project demonstrating how to build, run, and operate
-a containerized API on Kubernetes using Helm, ingress routing, health probes, resource
-governance, and autoscaling.
+Azure‑first platform engineering project that demonstrates a full DevOps path: build, package,
+deploy, operate, and observe a containerized API on Kubernetes using Helm, health probes,
+autoscaling, and real CI/CD.
 
-The repository is structured to mirror real-world platform and DevOps workflows, and is
-designed to evolve into a full cloud platform on Azure (AKS) provisioned with Terraform and
-automated CI/CD.
+The repo mirrors real platform workflows with separate dev/prod Terraform state, AKS/ACR,
+OIDC‑based GitHub Actions deployments, and Azure Monitor observability.
 
 ## What’s inside
 - **FastAPI service** containerized with Docker (example workload)
@@ -16,7 +15,7 @@ automated CI/CD.
 - **Resource limits/requests**
 - **Autoscaling** via **HPA**
 
-## 🎬 Demo (2 min)
+## 🎬 Demo (2 min, local)
 1) Build image
 ```bash
 cd app
@@ -81,19 +80,7 @@ See the rendered diagram in `docs/architecture.md` (Mermaid).
 ##  Azure deployment (AKS + ACR)
 This project is Azure-first and targets deployment to AKS with images stored in ACR.
 CD is implemented as a GitHub Actions workflow using OIDC (federated identity) and Helm releases.
-
-Due to restricted permissions in the student tenant (App registration / SP creation),
-the Azure CD workflow is gated until the required identity configuration is available.
-The repository includes the full target workflow and required configuration under
-`docs/azure-vars.md`.
-
-## ☁️ Activating Azure CD later (AKS + ACR)
-To activate the gated Azure workflow:
-- Use a personal Azure tenant/subscription (or admin-provisioned identity)
-- Create Entra App Registration + Federated Credential (GitHub OIDC)
-- Add GitHub Secrets: AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID
-- Add GitHub Vars: AZURE_ACR_NAME, AKS_RESOURCE_GROUP, AKS_CLUSTER_NAME
-- Run `CD (Azure AKS)` via workflow_dispatch
+Configuration reference: `docs/azure-vars.md`.
 
 ##  Security model
 - Identity-based authentication (OIDC) for CI/CD  
@@ -102,7 +89,7 @@ To activate the gated Azure workflow:
 - Infrastructure defined and reviewed as code  
 
 ## Observability (Azure Monitor)
-Container Insights is enabled and logs flow to Log Analytics.
+Container Insights is enabled and logs flow to Log Analytics (dev and prod).
 
 KQL example:
 ```kql
@@ -117,7 +104,7 @@ KubePodInventory
 - **Troubleshoot:** `kubectl -n p2-dev get pods` + `kubectl -n p2-dev logs deploy/project2-api`
 
 ## Cost (quick notes)
-- AKS: single node pool, 1 node  
+- AKS: dev 1 node, prod 2 nodes  
 - ACR: Basic SKU  
 - Log Analytics: 30‑day retention  
 - Clean up RGs when done to avoid charges
@@ -171,8 +158,5 @@ kubectl -n p2 get hpa
 
 - Local ingress is handled by Traefik shipped with k3d/k3s.
 
-Next steps will add: Terraform remote state, AKS provisioning, container registry, and CI/CD deploy.
-
 Roadmap
-
 See ROADMAP.md.
