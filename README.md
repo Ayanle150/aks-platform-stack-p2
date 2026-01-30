@@ -15,7 +15,7 @@ OIDC‑based GitHub Actions deployments, and Azure Monitor observability.
 - **Resource limits/requests**
 - **Autoscaling** via **HPA**
 
-## 🎬 Demo (2 min, local)
+## Demo (2 min, local)
 1) Build image
 ```bash
 cd app
@@ -40,7 +40,7 @@ kubectl -n p2 get hpa
 curl http://project2.local:8080/health
 ```
 
-*(Hvis du bruker annet domene enn `project2.local`, bytt det i linjen.)*
+If you use a different domain than `project2.local`, update the URL.
 
 ## Repository structure
 - `app/` — FastAPI source + Dockerfile
