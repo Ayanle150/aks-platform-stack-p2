@@ -55,6 +55,15 @@ If you use a different domain than `project2.local`, update the URL.
 3. **CD** (manual) builds/pushes image to **ACR** and deploys to **AKS** via **Helm**  
 4. **Observability** via Azure Monitor / Log Analytics (Container Insights)
 
+## CI/CD pipeline (job graph)
+The CD workflow is split into three jobs to show a clear dependency chain in GitHub Actions:
+
+1. `validate` — checks required Azure secrets/vars and generates a single `image_tag`
+2. `build-image` — OIDC login, build + push to ACR
+3. `deploy-aks` — Helm deploy using the same `image_tag`
+
+Graph: `validate → build-image → deploy-aks`
+
 ## Environments
 - `infra/terraform/envs/dev` — imported existing infra, remote state in Azure Storage
 - `infra/terraform/envs/prod` — separate env with its own backend + variables
