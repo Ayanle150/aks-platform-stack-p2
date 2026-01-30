@@ -15,6 +15,10 @@ on:
         description: "Image tag to deploy (default: commit SHA)"
         required: false
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
